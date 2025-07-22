@@ -1,0 +1,12 @@
+# .gitignore
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+*.db
+*.pdb
+*.DS_Store
+*.sln.docstates
