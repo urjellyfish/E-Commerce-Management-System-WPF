@@ -1,4 +1,4 @@
-﻿using E_CommerceManagementSystem.Business.Services.CustomerServ;
+﻿using E_CommerceManagementSystem.Business.Services;
 using E_CommerceManagementSystem.Repository.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.RegularExpressions;
@@ -12,49 +12,67 @@ namespace E_CommerceManagementSystem.Presentation
     /// </summary>
     public partial class RegisterWindow : Window
     {
-        private readonly ICustomerService _service;
+        private readonly CustomerService _service = new();
 
-        public RegisterWindow(ICustomerService service)
+        public RegisterWindow()
         {
             InitializeComponent();
-
-            _service = service;
         }
 
         private bool Validate()
         {
-            string patternName = @"^[A-Z][a-zA-Z\s]+$"; // Must start with a capital letter, only letters and spaces allowed
+            string patternName = @"^([A-Z][a-zA-Z]*)+( [A-Z][a-zA-Z]*)*$"; // Each word must start with a capital letter, only letters and spaces allowed
             string patternEmail = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
             if (NameTextBox.Text.IsNullOrEmpty())
             {
-                MessageBox.Show("Name is required.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Name is required!", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return false;
             }
 
             if (!Regex.IsMatch(NameTextBox.Text.Trim(), patternName))
             {
-                MessageBox.Show("Name must start with a capital letter and can only contain letters and spaces.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Each word must start with a capital letter and only letters and spaces are allowed!", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return false;
             }
 
             if (EmailTextBox.Text.IsNullOrEmpty())
             {
-                MessageBox.Show("Email is required.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Email is required!", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return false;
             }
 
             if (!Regex.IsMatch(EmailTextBox.Text.Trim(), patternEmail))
             {
-                MessageBox.Show("Invalid email format.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Invalid email format!", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return false;
             }
 
             if (PasswordBox.Password.IsNullOrEmpty())
             {
-                MessageBox.Show("Password is required.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Password is required!", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return false;
             }
+
+            if (PasswordBoxAgain.Password.IsNullOrEmpty())
+            {
+                MessageBox.Show("Password again is required!", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return false;
+            }
+
+            if (PasswordBox.Password != PasswordBoxAgain.Password)
+            {
+                MessageBox.Show("Passwords do not match!", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return false;
+            }
+
+            if (_service.GetCustomerByEmail(EmailTextBox.Text.Trim()) != null)
+            {
+                MessageBox.Show("This email is already registered!", "Input Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return false;
+            }
+
+            MessageBox.Show("Registration successful! Please login to continue!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
             return true;
         }

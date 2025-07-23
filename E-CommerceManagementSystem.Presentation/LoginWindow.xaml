@@ -15,8 +15,7 @@
         <Label Content="Password" HorizontalAlignment="Left" Margin="104,153,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
         <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Margin="214,157,0,0" VerticalAlignment="Top" Width="448" FontSize="18" VerticalContentAlignment="Center"/>
 
-        <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Margin="296,217,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Height="42" Width="241" Click="LoginButton_Click"/>
-        <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Left" Margin="296,278,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Height="42" Width="241" Click="RegisterButton_Click"/>
-        <Button x:Name="ForgotButton" Content="Forgot Password" HorizontalAlignment="Left" Margin="296,339,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Height="42" Width="241"/>
+        <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Margin="296,227,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Height="42" Width="241" Click="LoginButton_Click"/>
+        <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Left" Margin="296,304,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Height="42" Width="241" Click="RegisterButton_Click"/>
     </Grid>
 </Window>
