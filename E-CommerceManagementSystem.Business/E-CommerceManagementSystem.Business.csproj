@@ -9,7 +9,12 @@
 
   <ItemGroup>
     <Folder Include="DTO\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\E-CommerceManagementSystem.Repository\E-CommerceManagementSystem.Repository.csproj">
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

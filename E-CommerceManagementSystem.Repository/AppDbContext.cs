@@ -20,7 +20,7 @@ namespace E_CommerceManagementSystem.Repository
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 //Note: Remove this to migrationdotnet
-                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../E-CommerceManagementSystem.Presentation/"))
+                //.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../E-CommerceManagementSystem.Presentation/"))
                 .AddJsonFile("appsettings.json")
                 .Build();
 

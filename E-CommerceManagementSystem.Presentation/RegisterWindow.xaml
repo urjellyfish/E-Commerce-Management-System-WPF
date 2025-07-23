@@ -1,0 +1,27 @@
+﻿<Window x:Class="E_CommerceManagementSystem.Presentation.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:E_CommerceManagementSystem.Presentation"
+        mc:Ignorable="d"
+        Title="Register Account" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Register Account" HorizontalAlignment="Left" Margin="35,21,0,0" VerticalAlignment="Top" FontSize="30" FontWeight="ExtraBold"/>
+
+        <Label Content="Name" HorizontalAlignment="Left" Margin="50,99,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBox x:Name="NameTextBox" HorizontalAlignment="Center" Margin="0,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center"/>
+
+        <Label Content="Email" HorizontalAlignment="Left" Margin="50,156,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBox x:Name="EmailTextBox" HorizontalAlignment="Center" Margin="0,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center"/>
+
+        <Label Content="Password" HorizontalAlignment="Left" Margin="50,211,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Center" Margin="0,214,0,0" VerticalAlignment="Top" Width="390" FontSize="18" VerticalContentAlignment="Center"/>
+
+        <Label Content="Password again" HorizontalAlignment="Left" Margin="50,266,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <PasswordBox x:Name="PasswordBoxAgain" HorizontalAlignment="Center" Margin="0,270,0,0" VerticalAlignment="Top" Width="390" FontSize="18" VerticalContentAlignment="Center"/>
+
+        <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="655,101,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Height="41" Width="76" Click="SaveButton_Click"/>
+        <Button x:Name="CloseButton" Content="Close" HorizontalAlignment="Left" Margin="655,161,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Height="42" Width="76" Click="CloseButton_Click"/>
+    </Grid>
+</Window>
