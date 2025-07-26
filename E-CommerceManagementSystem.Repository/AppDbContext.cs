@@ -17,6 +17,8 @@ namespace E_CommerceManagementSystem.Repository
         {
         }
 
+        public AppDbContext() { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
