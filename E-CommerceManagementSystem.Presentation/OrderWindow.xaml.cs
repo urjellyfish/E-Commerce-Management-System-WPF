@@ -58,18 +58,5 @@ namespace E_CommerceManagementSystem.Presentation
                 MessageBox.Show($"Order {order.OrderID} updated to {order.Status}");
             }
         }
-
-        //private void OrderList_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        //{
-        //    if (e.Column.Header.ToString() == "Status")
-        //    {
-        //        var editedOrder = e.Row.Item as Order;
-        //        if (editedOrder != null)
-        //        {
-        //            _orderService.Update(editedOrder);
-        //            MessageBox.Show($"Order {editedOrder.OrderID} updated to {editedOrder.Status}");
-        //        }
-        //    }
-        //}
     }
 }

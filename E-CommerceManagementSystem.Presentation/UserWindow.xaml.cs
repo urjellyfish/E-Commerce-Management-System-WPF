@@ -1,5 +1,8 @@
-﻿using System;
+﻿using E_CommerceManagementSystem.Business.Services;
+using E_CommerceManagementSystem.Repository.Entities;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using E_CommerceManagementSystem.Business.Services;
-using E_CommerceManagementSystem.Repository.Entities;
 
 namespace E_CommerceManagementSystem.Presentation
 {
@@ -21,15 +22,17 @@ namespace E_CommerceManagementSystem.Presentation
     /// </summary>
     public partial class UserWindow : Window
     {
+        private ObservableCollection<Product> cartItems = new();
+        private OrderService orderService = new();
+        public Customer Customer { get; set; }
+
         private ProductService _service = new();
 
         public UserWindow()
         {
             InitializeComponent();
+            CartList.ItemsSource = cartItems;
         }
-
-
-
 
 
             private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -64,8 +67,61 @@ namespace E_CommerceManagementSystem.Presentation
                 }
             }
 
-
-
+        private void AddToCart_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.Tag is Product selectedProduct)
+            {
+                if (!cartItems.Any(p => p.ProductID == selectedProduct.ProductID))
+                {
+                    cartItems.Add(selectedProduct);
+                    MessageBox.Show("Add successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("This product is already in the cart.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
         }
+
+        private void RemoveFromCart_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.Tag is Product product)
+            {
+                cartItems.Remove(product);
+            }
+        }
+
+        private void BtnBuy_Click(object sender, RoutedEventArgs e)
+        {
+            if (cartItems.Count == 0)
+            {
+                MessageBox.Show("Cart is empty!");
+                return;
+            }
+
+            var result = MessageBox.Show("Are you sure to place the order?", "Confirm",
+                                         MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                var order = new Order
+                {
+                    OrderAmount = cartItems.Sum(p => p.Price),
+                    OrderDate = DateTime.Now,
+                    Status = "Pending",
+                    CustomerID = Customer.CustomerID,
+                    Customer = Customer,
+                    Products = new List<Product>(cartItems)
+                };
+
+                orderService.Create(order);
+                MessageBox.Show("Order successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                cartItems.Clear();
+            }
+        }
+
+
+
     }
+}
 
