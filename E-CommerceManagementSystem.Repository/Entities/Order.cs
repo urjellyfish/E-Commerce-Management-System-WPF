@@ -14,6 +14,7 @@ namespace E_CommerceManagementSystem.Repository.Entities
         public decimal OrderAmount { get; set; }
 
         public DateTime OrderDate { get; set; }
+        public string Status { get; set; }
 
         public int CustomerID { get; set; }
         public Customer Customer { get; set; }

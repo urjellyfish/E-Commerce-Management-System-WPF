@@ -19,17 +19,17 @@ namespace E_CommerceManagementSystem.Presentation
     /// <summary>
     /// Interaction logic for AdminWindow.xaml
     /// </summary>
-    public partial class AdminWindow : Window
+    public partial class ProductWindow : UserControl
     {
         private ProductService _service = new();
-        public AdminWindow()
+        public ProductWindow()
         {
             InitializeComponent();
         }
 
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             LoadData();
         }
@@ -99,9 +99,5 @@ namespace E_CommerceManagementSystem.Presentation
                 return;
             }
         }
-
-
-
-
     }
 }

@@ -7,6 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <TabControl>
+            
+            <TabItem Header="Products" Width="100">
+                <local:ProductWindow />
+            </TabItem>
+
+            <TabItem Header="Customers" Width="100">
+                <TextBlock Text="Customer management" />
+            </TabItem>
+
+            <TabItem Header="Orders" Width="100">
+                <local:OrderWindow />
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
