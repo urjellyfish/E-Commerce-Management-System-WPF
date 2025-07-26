@@ -12,6 +12,7 @@ namespace E_CommerceManagementSystem.Repository
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
 
+        public AppDbContext() { }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
