@@ -32,7 +32,7 @@ namespace E_CommerceManagementSystem.Repository.Repositories
 
         public bool IsAuth(string email, string password)
         {
-            _context = new(_optionsBuilder.Options);
+            _context = new();
 
             return _context.Customers.FirstOrDefault(c => c.Email.ToLower() == email.ToLower() && c.Password == password) != null ||
                 email.ToLower() == GetEmail()?.ToLower() && password == GetPassword();
@@ -40,7 +40,7 @@ namespace E_CommerceManagementSystem.Repository.Repositories
 
         public void Create(Customer customer)
         {
-            _context = new(_optionsBuilder.Options);
+            _context = new();
 
             _context.Customers.Add(customer);
             _context.SaveChanges();
@@ -48,7 +48,7 @@ namespace E_CommerceManagementSystem.Repository.Repositories
 
         public List<Customer> Read()
         {
-            _context = new(_optionsBuilder.Options);
+            _context = new();
             return _context.Customers.ToList();
         }
     }
