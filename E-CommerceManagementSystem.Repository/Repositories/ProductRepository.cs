@@ -13,10 +13,25 @@ namespace E_CommerceManagementSystem.Repository.Repositories
         private readonly DbContextOptionsBuilder<AppDbContext> _optionsBuilder = new();
         private AppDbContext _context;
 
+        public Product? GetProductById(int id)
+        {
+            _context = new();
+            return _context.Products
+                .Include("Category")
+                .FirstOrDefault(p => p.ProductID == id);
+        }
         public List<Product> GetAll()
         {
             _context = new();
             return _context.Products.Include("Category").ToList();
+        }
+
+        public List<Product> GetAllProductByOrderId(int orderId)
+        {
+            _context = new();
+            return _context.Products
+                           .Where(p => p.OrderID == orderId)
+                           .ToList();
         }
 
         public void Add(Product p)
