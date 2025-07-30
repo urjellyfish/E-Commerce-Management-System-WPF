@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:E_CommerceManagementSystem.Presentation"
         mc:Ignorable="d"
-        Title="ProductDetailWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="ProductDetailWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid>
 
 
