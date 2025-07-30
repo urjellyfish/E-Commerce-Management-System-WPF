@@ -16,5 +16,8 @@ namespace E_CommerceManagementSystem.Business.Services
         {
             return _repo.GetAll();
         }
+
+
+
     }
 }

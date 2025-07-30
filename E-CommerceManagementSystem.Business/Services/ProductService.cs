@@ -44,5 +44,9 @@ namespace E_CommerceManagementSystem.Business.Services
             return _repo.GetMaxId();
         }
 
+        public List<Product> FilterByCate(int cateID)
+        {
+            return _repo.FilterByCate(cateID);
+        }
     }
 }
