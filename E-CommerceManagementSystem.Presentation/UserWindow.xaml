@@ -38,6 +38,14 @@
                            Grid.Row="0"/>
 
 
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10">
+                        <Button x:Name="BtnRead" Content="Read" Width="80" Margin="0,0,10,0" Background="#FFB38B82" Foreground="White" Click="BtnRead_Click" />
+                        <ComboBox x:Name="CbCategoryFilter" Width="100" Margin="10,0,0,0" 
+DisplayMemberPath="Name" 
+SelectedValuePath="CategoryID"
+SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"/>
+                    </StackPanel>
+                    
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,10">
                         <TextBox x:Name="txtKeyword" Width="200" Margin="10,0,10,0" TextAlignment="Left" Foreground="Blue"/>
                         <Button x:Name="BtnSearch" Content="Search" Width="80" Background="#FF6B705C" Foreground="White" Click="BtnSearch_Click"/>
