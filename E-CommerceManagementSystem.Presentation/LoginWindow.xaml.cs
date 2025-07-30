@@ -53,9 +53,10 @@ namespace E_CommerceManagementSystem.Presentation
                 return;
             }
 
-            MainWindow main = new();
+            string userEmail = EmailTextBox.Text.Trim();
+            MainWindow main = new(userEmail);
             main.Show();
-            Hide();
+            this.Close();
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
