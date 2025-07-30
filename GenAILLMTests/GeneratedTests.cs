@@ -1,113 +1,126 @@
- //```csharp
+// Here is a simple example of xUnit integration tests for the given ProductService:
+
+//```csharp
 using Xunit;
 using System.Collections.Generic;
 using E_CommerceManagementSystem.Business.Services;
 using E_CommerceManagementSystem.Repository.Entities;
 
-namespace YourNamespaceTests
+namespace WpfApp.Tests
 {
     public class ProductServiceTests
     {
-        private readonly ProductService _productService;
-
-        public ProductServiceTests()
-        {
-            _productService = new ProductService();
-        }
+        private ProductService _productService = new ProductService();
 
         [Fact]
-        public void TestAddProduct()
+        public void TestAdd()
         {
-            var product = new Product
+            // Arrange
+            var productToAdd = new Product
             {
-                //ProductID = _productService.GetMaxId()+1,
                 Name = "Test Product",
-                Price = 9.99M,
-                Description = "This is a test product",
+                Price = 10M,
+                Description = "This is a test product.",
                 CategoryID = 1,
                 OrderID = null
             };
 
+            // Act
+            _productService.Add(productToAdd);
+
+            // Assert
+            var allProducts = _productService.GetAll();
+            Assert.True(allProducts.Any(p => p.Name == "Test Product"));
+        }
+
+        [Fact]
+        public void TestGetAll()
+        {
+            // Arrange (Pre-existing data for the test)
+            // ...
+
+            // Act
+            var allProducts = _productService.GetAll();
+
+            // Assert
+            Assert.False(allProducts.Any());
+        }
+
+        [Fact]
+        public void TestSearch()
+        {
+            // Arrange (Pre-existing data for the test)
+            // ...
+
+            // Act
+            var searchedProducts = _productService.Search("p");
+
+            // Assert
+            Assert.True(searchedProducts.Any());
+        }
+
+        [Fact]
+        public void TestGetById()
+        {
+            // Arrange (Pre-existing data for the test)
+            var product = new Product
+            {
+                //ProductID = _productService.GetMaxId()+1,
+                Name = "Test Product",
+                Price = 10M,
+                Description = "This is a test product.",
+                CategoryID = 1,
+                OrderID = null
+            };
             _productService.Add(product);
 
-            // Verify that the product was added to the repository
-            var allProducts = _productService.GetAll();
-            Assert.Contains(product, allProducts);
+            // Act
+            var retrievedProduct = _productService.GetById(3);
+
+            // Assert
+            Assert.Equal(product, retrievedProduct);
         }
 
         [Fact]
-        public void TestUpdateProduct()
+        public void TestUpdate()
         {
-            var product = new Product
+            // Arrange (Pre-existing data for the test)
+            var productToUpdate = _productService.GetById(1);
+
+            if (productToUpdate is null)
             {
-                //ProductID = _productService.GetMaxId(),
-                Name = "Updated Test Product",
-                Price = 19.99M,
-                Description = "This is an updated test product",
-                CategoryID = 2,
-                OrderID = null
-            };
+                Assert.Fail("No product with id 1 exists.");
+            }
 
-            _productService.Update(product);
+            // Act
+            productToUpdate.Name = "Updated Test Product";
+            _productService.Update(productToUpdate);
 
-            // Verify that the product was updated in the repository
-            var allProducts = _productService.GetAll();
-            Assert.Contains(product, allProducts);
+            // Act (Retrieve the updated product)
+            var updatedProduct = _productService.GetById(1);
+
+            // Assert
+            Assert.Equal("Updated Test Product", updatedProduct?.Name);
         }
 
         [Fact]
-        public void TestDeleteProduct()
+        public void TestDelete()
         {
-            var product = new Product
+            // Arrange (Pre-existing data for the test)
+            var productToDelete = _productService.GetById(2);
+
+            if (productToDelete is null)
             {
-                ProductID = _productService.GetMaxId(),
-                Name = "Deleted Test Product",
-                Price = 29.99M,
-                Description = "This is a deleted test product",
-                CategoryID = 3,
-                OrderID = null
-            };
+                Assert.Fail("No product with id 2 exists.");
+            }
 
-            _productService.Delete(product);
+            // Act
+            _productService.Delete(productToDelete);
 
-            // Verify that the product was removed from the repository
+            // Assert
             var allProducts = _productService.GetAll();
-            Assert.DoesNotContain(product, allProducts);
+            Assert.False(allProducts.Any(p => p.ProductID == 1));
         }
-
-        //[Fact]
-        //public void TestSearchProduct()
-        //{
-        //    var keyword = "test";
-        //    var products = new List<Product>
-        //    {
-        //        new Product { Name = "Test Product A" },
-        //        new Product { Name = "Test Product B" },
-        //        new Product { Name = "Not Test Product C" }
-        //    };
-
-        //    _productService.AddRange(products);
-
-        //    var searchResults = _productService.Search(keyword);
-
-        //    // Verify that the correct products were found based on the keyword
-        //    Assert.Contains(new Product { Name = "Test Product A" }, searchResults);
-        //    Assert.Contains(new Product { Name = "Test Product B" }, searchResults);
-        //    Assert.DoesNotContain(new Product { Name = "Not Test Product C" }, searchResults);
-        //}
-
-        //[Fact]
-        //public void TestGetMaxId()
-        //{
-        //    // Add a few products with increasing IDs to test the GetMaxId method
-        //    var product1 = new Product { ProductID = 1 };
-        //    var product2 = new Product { ProductID = 2 };
-        //    var product3 = new Product { ProductID = 3 };
-        //    _productService.AddRange(new[] { product1, product2, product3 });
-
-        //    // Verify that the GetMaxId returns the correct maximum ID
-        //    Assert.Equal(3, _productService.GetMaxId());
-        //}
     }
 }
 //```

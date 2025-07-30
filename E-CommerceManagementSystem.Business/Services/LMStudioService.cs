@@ -22,50 +22,52 @@ namespace E_CommerceManagementSystem.Business.Services
             Console.WriteLine("Loaded Class.cs");
 
             var prompt = $$""""
-                        Trying to mock interfaces that don't exist - Mock<IProductRepository> but you use concrete ProductRepository
-                        Wrong constructor - assumes ProductService(IProductRepository) but yours uses new ProductRepository() internally
-                        Wrong property names - uses ID but your Product has ProductID
-                        Wrong method signatures - assumes methods return values, but yours are void
-                        Completely ignoring your actual code structure
+                        You are generating xUnit integration tests for a WPF application. Follow these STRICT RULES:
 
-                        The AI is hallucinating a "standard" architecture instead of working with what you actually have. Here's a much more specific prompt that should force it to stick to your reality:
-                        csharpvar prompt = $"""
-                        CRITICAL: You must ONLY use the exact code structure provided. Do NOT assume interfaces, dependency injection, or different method signatures.
+                        ✅ USE:
+                        - ProductService constructor: `new ProductService()`
+                        - Direct calls to `Add()`, `Update()`, `Delete()` methods
+                        - Use `GetAll()` to verify results
+                        - Assert using:
+                          - `Assert.True(all.Any(...))`
+                          - `Assert.False(all.Any(...))`
+                          - `Assert.Equal(expected, actual)`
+                        - Class: `public class ProductServiceTests`
+                        - Tests: `[Fact] public void TestAdd() { ... }`
+                        - Tests: `[Fact] public void TestGetAll() { ... }`
 
-                        ACTUAL ProductService code (use EXACTLY this structure):
-                        {methodCode}
+                        ❌ DO NOT:
+                        - Use interfaces (none exist)
+                        - Use dependency injection or service collection
+                        - Mock repositories or use `Mock<>`
+                        - Use `Assert.Contains()` or `Assert.Single(obj)`
+                        - Assume method return values (they're void)
 
-                        ACTUAL Product entity (use EXACTLY these properties):
-                        - int ProductID (NOT "ID")
-                        - string Name  
-                        - decimal Price
-                        - string Description
-                        - int CategoryID
-                        - int? OrderID
+                        ProductService structure:
 
-                        EXACT METHOD SIGNATURES TO TEST:
-                        - List<Product> GetAll() - returns list
-                        - void Add(Product p) - returns nothing
-                        - void Update(Product p) - returns nothing  
-                        - void Delete(Product p) - returns nothing
-                        - List<Product> Search(string keyword) - returns list
-                        - int GetMaxId() - returns int
+                        ```csharp
+                        public class ProductService
+                        {
+                            private ProductRepository _repo = new();
+                            public List<Product> GetAll() => _repo.GetAll();
+                            public void Add(Product p) => _repo.Add(p);
+                            public Product? GetById(int id) => _repo.GetById(id);
+                            public void Update(Product p) => _repo.Update(p);
+                            public void Delete(Product p) => _repo.Delete(p);
+                            public List<Product> Search(string keyword) => _repo.Search(keyword);
+                            public int GetMaxId() => _repo.GetMaxId();
+                        }
 
-                        CONSTRAINTS:
-                        - ProductService creates its own repository internally: private ProductRepository _repo = new();
-                        - NO interfaces exist - use concrete classes only
-                        - NO dependency injection - just new ProductService()
-                        - These are integration tests working with real repository
-                        - Use ProductID property, never "ID"
-                        - Methods Add/Update/Delete return void, not objects
-
-                        Generate simple integration tests that:
-                        1. Create new ProductService() 
-                        2. Test the actual void methods
-                        3. Use GetAll() to verify results
-                        4. Use correct property names
-
-                        Return ONLY the test class code with proper xUnit structure.
+                        public class Product
+                        {
+                            public int ProductID { get; set; }
+                            public string Name { get; set; }
+                            public decimal Price { get; set; }
+                            public string Description { get; set; }
+                            public int CategoryID { get; set; }
+                            public int? OrderID { get; set; }
+                        }
+                        
                         """";
 
 
