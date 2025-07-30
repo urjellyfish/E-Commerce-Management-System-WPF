@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using E_CommerceManagementSystem.Business.DTO;
 using E_CommerceManagementSystem.Business.Services;
@@ -19,17 +20,16 @@ namespace E_CommerceManagementSystem.Presentation
     /// <summary>
     /// Interaction logic for CategoryManagementWindow.xaml
     /// </summary>
-    public partial class CategoryManagementWindow : Window
+    public partial class CategoryManagementWindow : UserControl
     {
         private readonly CategoryService _categoryService;
-
         public CategoryManagementWindow()
         {
             InitializeComponent();
             _categoryService = new CategoryService();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             LoadCategories();
         }
@@ -42,7 +42,7 @@ namespace E_CommerceManagementSystem.Presentation
 
         private void CategoryDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(CategoryDataGrid.SelectedItem is CategoryDTO selectedCategory)
+            if (CategoryDataGrid.SelectedItem is CategoryDTO selectedCategory)
             {
                 CategoryIdTextBox.Text = selectedCategory.CategoryId.ToString();
                 NameTextBox.Text = selectedCategory.Name;
