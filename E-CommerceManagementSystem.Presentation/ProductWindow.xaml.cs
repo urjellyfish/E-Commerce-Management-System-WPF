@@ -22,6 +22,7 @@ namespace E_CommerceManagementSystem.Presentation
     public partial class ProductWindow : UserControl
     {
         private ProductService _service = new();
+        private LMStudioService _testGenerator = new();
         public ProductWindow()
         {
             InitializeComponent();
@@ -97,6 +98,19 @@ namespace E_CommerceManagementSystem.Presentation
             {
                 MessageBox.Show("Not found");
                 return;
+            }
+        }
+
+        private async void BtnGenerateTest_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await _testGenerator.GenerateCodeAsync();
+                MessageBox.Show("Unit test generated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error generating unit test: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

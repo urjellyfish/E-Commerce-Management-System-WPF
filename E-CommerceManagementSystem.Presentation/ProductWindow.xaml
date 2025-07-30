@@ -30,6 +30,7 @@
                 <Button x:Name="BtnDelete" Content="Delete" Width="80" Background="#FFB38B82" Foreground="White" Click="BtnDelete_Click"/>
                 <TextBox x:Name="txtKeyword" Width="200" Margin="10,0,10,0" TextAlignment="Left" Foreground="Blue"/>
                 <Button x:Name="BtnSearch" Content="Search" Width="80" Background="#FF6B705C" Foreground="White" Click="BtnSearch_Click"/>
+                <Button x:Name="BtnGenerateTest" Content="Generate Test" Click="BtnGenerateTest_Click" Width="100" Margin="5"/>
             </StackPanel>
 
 
