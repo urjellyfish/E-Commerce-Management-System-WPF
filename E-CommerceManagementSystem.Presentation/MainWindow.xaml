@@ -8,9 +8,9 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TabControl>
-            
+
             <TabItem Header="Products" Width="100">
-                <local:ProductWindow />
+                <local:ProductWindow/>
             </TabItem>
 
             <TabItem Header="Customers" Width="100">
@@ -20,6 +20,11 @@
             <TabItem Header="Orders" Width="100">
                 <local:OrderWindow />
             </TabItem>
+
+            <TabItem x:Name="CategoryManagement" Header="Categories" Width="100" Visibility="Collapsed">
+                <local:CategoryManagementWindow/>
+            </TabItem>
+
         </TabControl>
     </Grid>
 </Window>
