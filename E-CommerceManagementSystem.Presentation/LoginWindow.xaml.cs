@@ -1,4 +1,5 @@
 ﻿using E_CommerceManagementSystem.Business.Services;
+using E_CommerceManagementSystem.Repository.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -53,8 +54,17 @@ namespace E_CommerceManagementSystem.Presentation
                 return;
             }
 
-            MainWindow main = new();
-            main.Show();
+            Customer? customer = _service.GetCustomerByEmail(EmailTextBox.Text.Trim());
+
+            if (customer != null)
+            {
+                UserWindow userWindow = new UserWindow();
+                userWindow.Customer = customer;
+                userWindow.Show();
+            }
+
+
+
             Hide();
         }
 

@@ -7,6 +7,16 @@ namespace E_CommerceManagementSystem.Business.Services
     {
         private readonly CustomerRepository _repo = new();
 
+        public string? GetEmailAdmin()
+        {
+            return _repo.GetEmail();
+        }
+
+        public string? GetPasswordAdmin()
+        {
+            return _repo.GetPassword();
+        }
+
         public bool IsAuth(string email, string password)
         {
             return _repo.IsAuth(email, password);

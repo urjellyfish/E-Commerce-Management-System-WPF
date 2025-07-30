@@ -36,41 +36,42 @@ namespace E_CommerceManagementSystem.Presentation
         }
 
 
-            private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadData();
+            FillCustomerInfor();
+        }
+
+        private void LoadData()
+        {
+            ProductList.ItemsSource = null;
+            ProductList.ItemsSource = _service.GetAll();
+            
+            CbCategoryFilter.ItemsSource = null;
+            CbCategoryFilter.ItemsSource = _categoryService.GetAll();
+            CbCategoryFilter.SelectedIndex = -1; // Không chọn gì khi load
+        }
+
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtKeyword.Text))
             {
                 LoadData();
             }
 
-            private void LoadData()
+            var result = _service.Search(txtKeyword.Text.Trim());
+            ProductList.ItemsSource = null;
+
+            if (result.Count > 0)
             {
-                ProductList.ItemsSource = null;
-                ProductList.ItemsSource = _service.GetAll();
-
-                CbCategoryFilter.ItemsSource = null;
-                CbCategoryFilter.ItemsSource = _categoryService.GetAll();
-                CbCategoryFilter.SelectedIndex = -1; // Không chọn gì khi load
+                ProductList.ItemsSource = result;
             }
-
-            private void BtnSearch_Click(object sender, RoutedEventArgs e)
+            else
             {
-                if (string.IsNullOrWhiteSpace(txtKeyword.Text))
-                {
-                    LoadData();
-                }
-
-                var result = _service.Search(txtKeyword.Text.Trim());
-                ProductList.ItemsSource = null;
-
-                if (result.Count > 0)
-                {
-                    ProductList.ItemsSource = result;
-                }
-                else
-                {
-                    MessageBox.Show("Not found");
-                    return;
-                }
+                MessageBox.Show("Not found");
+                return;
             }
+        }
 
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
@@ -125,6 +126,7 @@ namespace E_CommerceManagementSystem.Presentation
             }
         }
 
+
         private void CbCategoryFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CbCategoryFilter.SelectedValue != null)
@@ -142,6 +144,20 @@ namespace E_CommerceManagementSystem.Presentation
         private void BtnRead_Click(object sender, RoutedEventArgs e)
         {
             LoadData();
+        }
+        private void FillCustomerInfor()
+        {
+            CustomerIdTextBox.Text = Customer.CustomerID.ToString();
+            CustomerIdTextBox.IsEnabled = false;
+
+            NameTextBox.Text = Customer.Name.ToString();
+            NameTextBox.IsEnabled = false;
+
+            EmailTextBox.Text = Customer.Email.ToString();
+            EmailTextBox.IsEnabled = false;
+
+            PasswordBox.Password = Customer.Password.ToString();
+            PasswordBox.IsEnabled = false;
         }
     }
 }
