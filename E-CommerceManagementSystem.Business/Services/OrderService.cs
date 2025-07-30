@@ -46,8 +46,7 @@ namespace E_CommerceManagementSystem.Business.Services
                     .Where(p => p.Customer.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
                                 p.Status.Contains(keyword, StringComparison.OrdinalIgnoreCase))
                     .ToList();
-            }
+            }           
         }
-
     }
 }
