@@ -54,9 +54,18 @@ namespace E_CommerceManagementSystem.Repository.Repositories
             keyword = keyword.ToLower().Trim();
             return _context.Products
                 .Include("Category")
-                .Where(p => p.Category.Name.Contains(keyword))
+                .Where(p => p.Name.Contains(keyword) || p.Description.Contains(keyword))
                 .ToList();
 
+        }
+
+        public List<Product> FilterByCate(int caterId)
+        {
+            _context = new();
+            return  _context.Products
+                .Include("Category")
+                .Where(p => p.CategoryID == caterId)
+                .ToList();
         }
     }
 }

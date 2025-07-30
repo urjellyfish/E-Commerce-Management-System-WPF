@@ -48,14 +48,14 @@ namespace E_CommerceManagementSystem.Presentation
             if (Edited == null)
             {
                 WindowMode.Text = "Add a new Product";
-                txtProductID.Text = (_service.GetMaxId() + 1).ToString();
-                txtProductID.IsEnabled = false;
+                //txtProductID.Text = (_service.GetMaxId() + 1).ToString();
+                //txtProductID.IsEnabled = false;
             }
             else
             {
                 WindowMode.Text = "Update a Product";
-                txtProductID.Text = Edited.ProductID.ToString();
-                txtProductID.IsEnabled = false;
+                //txtProductID.Text = Edited.ProductID.ToString();
+                //txtProductID.IsEnabled = false;
             }
         }
 
@@ -125,7 +125,8 @@ namespace E_CommerceManagementSystem.Presentation
                 _service.Add(p);
             else
             {
-                p.ProductID = int.Parse(txtProductID.Text);
+                //p.ProductID = int.Parse(txtProductID.Text);
+                p.ProductID = Edited.ProductID;
                 _service.Update(p);
             }
 
