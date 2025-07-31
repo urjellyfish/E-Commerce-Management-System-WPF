@@ -12,17 +12,22 @@
 
             <TabItem Header="UserProfile" Width="100">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="248*"/>
+                        <ColumnDefinition Width="35*"/>
+                        <ColumnDefinition Width="541*"/>
+                    </Grid.ColumnDefinitions>
                     <Label Content="ID" HorizontalAlignment="Left" Margin="60,43,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-                    <TextBox x:Name="CustomerIdTextBox" HorizontalAlignment="Left" Margin="171,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="CustomerIdTextBox" HorizontalAlignment="Left" Margin="171,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
 
                     <Label Content="Name" HorizontalAlignment="Left" Margin="60,105,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="74"/>
-                    <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Margin="171,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Margin="171,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
 
                     <Label Content="Email" HorizontalAlignment="Left" Margin="60,161,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="64"/>
-                    <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Margin="171,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Margin="171,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
 
                     <Label Content="Password" HorizontalAlignment="Left" Margin="60,217,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-                    <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Margin="171,221,0,0" VerticalAlignment="Top" Width="510" FontSize="18" VerticalContentAlignment="Center"/>
+                    <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Margin="171,221,0,0" VerticalAlignment="Top" Width="510" FontSize="18" VerticalContentAlignment="Center" Grid.ColumnSpan="3"/>
                 </Grid>
             </TabItem>
 
@@ -51,11 +56,13 @@ DisplayMemberPath="Name"
 SelectedValuePath="CategoryID"
 SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"/>
                     </StackPanel>
-                    
+
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,10">
-                        <TextBox x:Name="txtKeyword" Width="200" Margin="10,0,10,0" TextAlignment="Left" Foreground="Blue"/>
+                        <TextBox x:Name="txtKeyword" Width="165" Margin="10,0,10,0" TextAlignment="Left" Foreground="Blue"/>
                         <Button x:Name="BtnSearch" Content="Search" Width="80" Background="#FF6B705C" Foreground="White" Click="BtnSearch_Click"/>
                     </StackPanel>
+                    <TextBlock Text="Search by Name or Description"  HorizontalAlignment="Left" Margin="550,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" Grid.RowSpan="2"/>
+                    <TextBlock Text="Filter by Category"  HorizontalAlignment="Left" Margin="102,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" Grid.RowSpan="2"/>
 
 
                     <DataGrid x:Name="ProductList"
