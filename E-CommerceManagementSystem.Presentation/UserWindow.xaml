@@ -67,7 +67,7 @@
                         <Button x:Name="BtnRead" Content="Read" Width="80" Margin="0,0,10,0" Background="#FFB38B82" Foreground="White" Click="BtnRead_Click" />
                         <ComboBox x:Name="CbCategoryFilter" Width="100" Margin="10,0,0,0" 
                       DisplayMemberPath="Name" 
-                      SelectedValuePath="CategoryID"
+                      SelectedValuePath="CategoryId"
                       SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"/>
                     </StackPanel>
 
