@@ -22,6 +22,7 @@ namespace E_CommerceManagementSystem.Repository.Entities
         public int? OrderID { get; set; }
 
         public Category Category { get; set; }
+       
         public Order Order { get; set; }
     }
 }
