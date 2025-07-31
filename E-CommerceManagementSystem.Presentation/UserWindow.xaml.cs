@@ -29,7 +29,8 @@ namespace E_CommerceManagementSystem.Presentation
 
         private ProductService _productService = new();
         private CategoryService _categoryService = new();
-        public Order? SelectedOrder { get; set; }
+        public List<Order>? Orders { get; set; }
+        public Order SelectedOrder { get; set; }
         public List<Product> OrderProducts { get; set; }
         public UserWindow()
         {
@@ -43,8 +44,11 @@ namespace E_CommerceManagementSystem.Presentation
         {
             LoadData();
             LoadOrderDetail();
+            if (SelectedOrder != null)
+            {
+                LoadProductsForSelectedOrder();
+            }
 
-            DataContext = this;
         }
 
         private void LoadData()
@@ -138,6 +142,10 @@ namespace E_CommerceManagementSystem.Presentation
                
                 MessageBox.Show("Order successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 cartItems.Clear();
+                LoadData();
+                LoadOrderDetail();
+                SelectedOrder = order;
+                LoadProductsForSelectedOrder();
             }
         }
 
@@ -151,25 +159,37 @@ namespace E_CommerceManagementSystem.Presentation
             }
             else
             {
-                // Nếu không chọn gì, hiển thị tất cả sản phẩm
                 ProductList.ItemsSource = _productService.GetAll();
             }
         }
 
         private void LoadOrderDetail()
         {
+            Orders = orderService.GetOrdersByCustomerId(Customer.CustomerID);
 
-            // Giả sử lấy đơn hàng gần nhất của user
-            SelectedOrder = orderService.GetOrdersByCustomerId(Customer.CustomerID)
-                                     .OrderByDescending(o => o.OrderDate)
-                                     .FirstOrDefault();
-
-            if (SelectedOrder != null)
+            if (Orders != null && Orders.Any())
             {
-                OrderProducts = _productService.GetAllProductByOrderId(SelectedOrder.OrderID);   
-
-                DataContext = this; // cập nhật binding
+                OrderList.ItemsSource = null;
+                OrderList.ItemsSource = Orders;
+                OrderList.SelectedIndex = 0;
             }
+        }
+
+        private void OrderList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (OrderList.SelectedItem is Order selected)
+            {
+                SelectedOrder = selected;
+                LoadProductsForSelectedOrder();
+            }
+        }
+
+        private void LoadProductsForSelectedOrder()
+        {
+            if (SelectedOrder == null) return;
+            var productList = _productService.GetAllProductByOrderId(SelectedOrder.OrderID);
+            OrderProductList.ItemsSource = null;
+            OrderProductList.ItemsSource = productList;
         }
 
 

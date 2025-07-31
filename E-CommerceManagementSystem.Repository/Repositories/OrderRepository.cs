@@ -24,7 +24,6 @@ namespace E_CommerceManagementSystem.Repository.Repositories
         {
             context = new();
             return context.Orders
-                .Include(o => o.Products)
                 .Include(o => o.Customer)
                 .Where(o => o.Customer.CustomerID == customerId)
                 .ToList();
