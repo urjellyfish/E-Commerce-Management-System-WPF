@@ -34,12 +34,19 @@ namespace E_CommerceManagementSystem.Repository.Repositories
                            .ToList();
         }
 
+        public Product? GetById(int id)
+        {
+            _context = new();
+            return _context.Products.FirstOrDefault(p => p.ProductID == id);
+        }
+
         public void Add(Product p)
         {
             _context = new();
             _context.Add(p);
             _context.SaveChanges();
         }
+        
 
         public void Update(Product p)
         {

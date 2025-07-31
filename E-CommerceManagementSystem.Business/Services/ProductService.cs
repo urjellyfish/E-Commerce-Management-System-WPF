@@ -33,6 +33,11 @@ namespace E_CommerceManagementSystem.Business.Services
             _repo.Add(p);
         }
 
+        public Product? GetById(int id)
+        {
+            return _repo.GetById(id);
+        }
+
         public void Update(Product p)
         {
             _repo.Update(p);
