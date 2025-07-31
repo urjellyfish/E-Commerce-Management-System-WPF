@@ -53,6 +53,20 @@ namespace E_CommerceManagementSystem.Presentation
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
+            {
+                MessageBox.Show("Category Name is required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                NameTextBox.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(DescriptionTextBox.Text))
+            {
+                MessageBox.Show("Description is required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                DescriptionTextBox.Focus();
+                return;
+            }
+
             var newCategory = new CategoryDTO
             {
                 Name = NameTextBox.Text,
@@ -60,9 +74,17 @@ namespace E_CommerceManagementSystem.Presentation
                 Description = DescriptionTextBox.Text
             };
 
-            _categoryService.AddCategory(newCategory);
-            MessageBox.Show("Category added successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            LoadCategories();
+            try
+            {
+                _categoryService.AddCategory(newCategory);
+                MessageBox.Show("Category added successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadCategories();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
@@ -70,6 +92,20 @@ namespace E_CommerceManagementSystem.Presentation
             if (CategoryDataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Please select a category to update.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
+            {
+                MessageBox.Show("Category Name is required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                NameTextBox.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(DescriptionTextBox.Text))
+            {
+                MessageBox.Show("Description is required.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                DescriptionTextBox.Focus();
                 return;
             }
 
