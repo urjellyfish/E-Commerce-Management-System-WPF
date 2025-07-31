@@ -194,6 +194,7 @@ namespace E_CommerceManagementSystem.Presentation
                 CustomerNameText.Text = selected.Customer?.Name ?? "";
                 OrderDateText.Text = selected.OrderDate.ToString("yyyy-MM-dd");
                 TotalAmountText.Text = selected.OrderAmount.ToString("C");
+                StatusText.Text = selected.Status.ToString();
 
                 // Load sản phẩm
                 var productList = _productService.GetAllProductByOrderId(selected.OrderID);
