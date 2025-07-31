@@ -22,7 +22,7 @@
                HorizontalAlignment="Left"
                Margin="0,0,0,10"
                    Grid.Row="0"/>
-
+            <Button x:Name="BtnGenerateTest" Content="Generate Test" Click="BtnGenerateTest_Click" Width="100" Margin="5"/>
             <!-- Các nút CRUD -->
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,10">
                 <Button x:Name="BtnRead" Content="Read" Width="80" Margin="0,0,10,0" Background="#FFB38B82" Foreground="White" Click="BtnRead_Click"/>
@@ -35,7 +35,7 @@
                   DisplayMemberPath="Name" 
                   SelectedValuePath="CategoryID"
                   SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"/>
-                <Button x:Name="BtnGenerateTest" Content="Generate Test" Click="BtnGenerateTest_Click" Width="100" Margin="5"/>
+                
             </StackPanel>
 
 
