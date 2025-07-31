@@ -188,20 +188,25 @@
 
                     <!-- Thông tin đơn hàng -->
                     <StackPanel Grid.Row="1" Margin="0,0,0,10">
-            <TextBlock Text="Order Detail" FontSize="20" FontWeight="Bold" Foreground="DarkBlue" Margin="0,0,0,10"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Customer: " FontWeight="Bold"/>
-                <TextBlock x:Name="CustomerNameText" Foreground="DarkGreen" Margin="5,0"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Order Date: " FontWeight="Bold"/>
-                <TextBlock x:Name="OrderDateText" Margin="5,0"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Total Amount: " FontWeight="Bold"/>
-                <TextBlock x:Name="TotalAmountText" Margin="5,0"/>
-            </StackPanel>
-        </StackPanel>
+                        <TextBlock Text="Order Detail" FontSize="20" FontWeight="Bold" Foreground="DarkBlue" Margin="0,0,0,10"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Customer: " FontWeight="Bold"/>
+                            <TextBlock x:Name="CustomerNameText" Foreground="DarkGreen" Margin="5,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Order Date: " FontWeight="Bold"/>
+                            <TextBlock x:Name="OrderDateText" Margin="5,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Total Amount: " FontWeight="Bold"/>
+                            <TextBlock x:Name="TotalAmountText" Margin="5,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Status: " FontWeight="Bold"/>
+                            <TextBlock x:Name="StatusText" Margin="5,0"/>
+                        </StackPanel>
+
+                    </StackPanel>
 
                     <!-- Danh sách sản phẩm của đơn hàng được chọn -->
                     <DataGrid x:Name="OrderProductList"
