@@ -13,10 +13,19 @@ namespace E_CommerceManagementSystem.Business.Services
 
         private ProductRepository _repo = new();
 
+        public Product GetProductById(int id)
+        {
+            return _repo.GetProductById(id);
+        }
 
         public List<Product> GetAll()
         {
             return _repo.GetAll();
+        }
+
+        public List<Product> GetAllProductByOrderId(int orderId)
+        {
+            return _repo.GetAllProductByOrderId(orderId);
         }
 
         public void Add(Product p)
@@ -49,5 +58,9 @@ namespace E_CommerceManagementSystem.Business.Services
             return _repo.GetMaxId();
         }
 
+        public List<Product> FilterByCate(int cateID)
+        {
+            return _repo.FilterByCate(cateID);
+        }
     }
 }

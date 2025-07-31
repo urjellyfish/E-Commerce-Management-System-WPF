@@ -25,11 +25,16 @@
 
             <!-- Các nút CRUD -->
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,10">
+                <Button x:Name="BtnRead" Content="Read" Width="80" Margin="0,0,10,0" Background="#FFB38B82" Foreground="White" Click="BtnRead_Click"/>
                 <Button x:Name="BtnCreate" Content="Create" Width="80" Margin="0,0,10,0" Background="#FFB38B82" Foreground="White" Click="BtnCreate_Click"/>
                 <Button x:Name="BtnUpdate" Content="Update" Width="80" Margin="0,0,10,0" Background="#FFB38B82" Foreground="White" Click="BtnUpdate_Click"/>
                 <Button x:Name="BtnDelete" Content="Delete" Width="80" Background="#FFB38B82" Foreground="White" Click="BtnDelete_Click"/>
-                <TextBox x:Name="txtKeyword" Width="200" Margin="10,0,10,0" TextAlignment="Left" Foreground="Blue"/>
+                <TextBox x:Name="txtKeyword" Width="150" Margin="10,0,10,0" TextAlignment="Left" Foreground="Blue"/>
                 <Button x:Name="BtnSearch" Content="Search" Width="80" Background="#FF6B705C" Foreground="White" Click="BtnSearch_Click"/>
+                <ComboBox x:Name="CbCategoryFilter" Width="100" Margin="10,0,0,0" 
+                  DisplayMemberPath="Name" 
+                  SelectedValuePath="CategoryID"
+                  SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"/>
                 <Button x:Name="BtnGenerateTest" Content="Generate Test" Click="BtnGenerateTest_Click" Width="100" Margin="5"/>
             </StackPanel>
 

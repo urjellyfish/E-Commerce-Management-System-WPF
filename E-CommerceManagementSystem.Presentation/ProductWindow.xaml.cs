@@ -22,6 +22,7 @@ namespace E_CommerceManagementSystem.Presentation
     public partial class ProductWindow : UserControl
     {
         private ProductService _service = new();
+        private CategoryService _categoryService = new();
         private LMStudioService _testGenerator = new();
         public ProductWindow()
         {
@@ -39,6 +40,10 @@ namespace E_CommerceManagementSystem.Presentation
         {
             ProductList.ItemsSource = null;
             ProductList.ItemsSource = _service.GetAll();
+
+            CbCategoryFilter.ItemsSource = null;
+            CbCategoryFilter.ItemsSource = _categoryService.GetAll();
+            CbCategoryFilter.SelectedIndex = -1; // Không chọn gì khi load
         }
         private void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
@@ -101,6 +106,20 @@ namespace E_CommerceManagementSystem.Presentation
             }
         }
 
+        private void CbCategoryFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CbCategoryFilter.SelectedValue != null)
+            {
+                int selectedCategory = (int)CbCategoryFilter.SelectedValue;
+                ProductList.ItemsSource = _service.FilterByCate(selectedCategory);
+            }
+            else
+            {
+                // Nếu không chọn gì, hiển thị tất cả sản phẩm
+                ProductList.ItemsSource = _service.GetAll();
+            }
+        }
+
         private async void BtnGenerateTest_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -112,6 +131,11 @@ namespace E_CommerceManagementSystem.Presentation
             {
                 MessageBox.Show($"Error generating unit test: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void BtnRead_Click(object sender, RoutedEventArgs e)
+        {
+            LoadData();
         }
     }
 }

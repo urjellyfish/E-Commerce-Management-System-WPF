@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:E_CommerceManagementSystem.Presentation"
         mc:Ignorable="d"
-        Title="ProductDetailWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="ProductDetailWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid>
 
 
@@ -32,8 +32,8 @@
                     <ColumnDefinition Width="240"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="ProductID:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtProductID" Grid.Row="0" Grid.Column="1" Margin="0,4"/>
+                <!--<TextBlock Text="ProductID:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtProductID" Grid.Row="0" Grid.Column="1" Margin="0,4"/>-->
 
                 <TextBlock Text="Name:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="txtName" Grid.Row="1" Grid.Column="1" Margin="0,4"/>
