@@ -43,12 +43,23 @@ namespace E_CommerceManagementSystem.Presentation
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadData();
+            DisplayCustomerInfo();
             LoadOrderDetail();
             if (SelectedOrder != null)
             {
                 LoadProductsForSelectedOrder();
             }
 
+        }
+
+        private void DisplayCustomerInfo()
+        {
+            if (Customer != null)
+            {
+                ProfileCustomerIdText.Text = Customer.CustomerID.ToString();
+                ProfileCustomerNameText.Text = Customer.Name;
+                ProfileCustomerEmailText.Text = Customer.Email;
+            }
         }
 
         private void LoadData()
@@ -179,8 +190,15 @@ namespace E_CommerceManagementSystem.Presentation
         {
             if (OrderList.SelectedItem is Order selected)
             {
-                SelectedOrder = selected;
-                LoadProductsForSelectedOrder();
+                // Update thông tin chi tiết
+                CustomerNameText.Text = selected.Customer?.Name ?? "";
+                OrderDateText.Text = selected.OrderDate.ToString("yyyy-MM-dd");
+                TotalAmountText.Text = selected.OrderAmount.ToString("C");
+
+                // Load sản phẩm
+                var productList = _productService.GetAllProductByOrderId(selected.OrderID);
+                OrderProductList.ItemsSource = null;
+                OrderProductList.ItemsSource = productList;
             }
         }
 
