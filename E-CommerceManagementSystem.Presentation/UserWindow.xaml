@@ -18,29 +18,28 @@
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <!-- Header -->
                         <RowDefinition Height="*"/>
-                        <!-- Product List -->
                     </Grid.RowDefinitions>
 
-                    <!-- Order Info -->
+                    <!-- User Info -->
                     <StackPanel Grid.Row="0" Margin="0,0,0,10">
                         <TextBlock Text="User Profile" FontSize="20" FontWeight="Bold" Foreground="DarkBlue" Margin="0,0,0,20"/>
                         <StackPanel Orientation="Horizontal" Height="36">
                             <TextBlock Text="ID: " FontWeight="Bold" FontSize="16"/>
-                            <TextBlock Text="{Binding Customer.CustomerID}" Margin="5,0" FontSize="16"/>
+                            <TextBlock x:Name="ProfileCustomerIdText" Margin="5,0" FontSize="16"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Height="36">
                             <TextBlock Text="Name: " FontWeight="Bold" FontSize="16"/>
-                            <TextBlock Text="{Binding Customer.Name}" Margin="5,0" FontSize="16"/>
+                            <TextBlock x:Name="ProfileCustomerNameText" Margin="5,0" FontSize="16"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Height="36">
                             <TextBlock Text="Email: " FontWeight="Bold" FontSize="16"/>
-                            <TextBlock Text="{Binding Customer.Email}" Margin="5,0" FontSize="16"/>
+                            <TextBlock x:Name="ProfileCustomerEmailText" Margin="5,0" FontSize="16"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
             </TabItem>
+
 
             <TabItem Header="Product" Width="100">
                 <Grid Margin="10">
@@ -189,27 +188,27 @@
 
                     <!-- Thông tin đơn hàng -->
                     <StackPanel Grid.Row="1" Margin="0,0,0,10">
-                        <TextBlock Text="Order Detail" FontSize="20" FontWeight="Bold" Foreground="DarkBlue" Margin="0,0,0,10"/>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Customer: " FontWeight="Bold"/>
-                            <TextBlock Text="{Binding SelectedOrder.Customer.Name}" Foreground="DarkGreen" Margin="5,0"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Order Date: " FontWeight="Bold"/>
-                            <TextBlock Text="{Binding SelectedOrder.OrderDate, StringFormat='{}{0:yyyy-MM-dd}'}" Margin="5,0"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Total Amount: " FontWeight="Bold"/>
-                            <TextBlock Text="{Binding SelectedOrder.OrderAmount, StringFormat='{}{0:C}'}" Margin="5,0"/>
-                        </StackPanel>
-                    </StackPanel>
+            <TextBlock Text="Order Detail" FontSize="20" FontWeight="Bold" Foreground="DarkBlue" Margin="0,0,0,10"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Customer: " FontWeight="Bold"/>
+                <TextBlock x:Name="CustomerNameText" Foreground="DarkGreen" Margin="5,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Order Date: " FontWeight="Bold"/>
+                <TextBlock x:Name="OrderDateText" Margin="5,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Total Amount: " FontWeight="Bold"/>
+                <TextBlock x:Name="TotalAmountText" Margin="5,0"/>
+            </StackPanel>
+        </StackPanel>
 
                     <!-- Danh sách sản phẩm của đơn hàng được chọn -->
                     <DataGrid x:Name="OrderProductList"
-                  Grid.Row="2"
-                  AutoGenerateColumns="False"
-                  ItemsSource="{Binding OrderProducts}"
-                  IsReadOnly="True">
+                              Grid.Row="2"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding OrderProducts}"
+                              IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Product ID" Binding="{Binding ProductID}" Width="100"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"/>
