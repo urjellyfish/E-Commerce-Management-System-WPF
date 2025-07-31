@@ -45,6 +45,17 @@ namespace E_CommerceManagementSystem.Business.Services
 
         public void AddCategory(CategoryDTO categoryDto)
         {
+            if (categoryDto == null || string.IsNullOrWhiteSpace(categoryDto.Name))
+            {
+                throw new ArgumentException("Category name cannot be empty.");
+            }
+
+            // Check for duplicate names
+            if (_repo.GetAll().Any(c => c.Name.Equals(categoryDto.Name, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new InvalidOperationException("A category with this name already exists.");
+            }
+
             var categoryEntity = new Category
             {
                 Name = categoryDto.Name,
@@ -56,6 +67,11 @@ namespace E_CommerceManagementSystem.Business.Services
 
         public void UpdateCategory(CategoryDTO categoryDto)
         {
+            if (categoryDto == null || string.IsNullOrWhiteSpace(categoryDto.Name))
+            {
+                throw new ArgumentException("Category name cannot be empty.");
+            }
+
             var categoryEntity = new Category
             {
                 CategoryID = categoryDto.CategoryId,
