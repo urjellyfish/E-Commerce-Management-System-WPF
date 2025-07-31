@@ -14,19 +14,31 @@
     <Grid Margin="10">
         <TabControl>
 
-            <TabItem Header="UserProfile" Width="100">
-                <Grid>
-                    <Label Content="ID" HorizontalAlignment="Left" Margin="60,43,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-                    <TextBox x:Name="CustomerIdTextBox" HorizontalAlignment="Left" Margin="171,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center"/>
+            <TabItem Header="User Profile" Width="100">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Header -->
+                        <RowDefinition Height="*"/>
+                        <!-- Product List -->
+                    </Grid.RowDefinitions>
 
-                    <Label Content="Name" HorizontalAlignment="Left" Margin="60,105,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="74"/>
-                    <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Margin="171,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center"/>
-
-                    <Label Content="Email" HorizontalAlignment="Left" Margin="60,161,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="64"/>
-                    <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Margin="171,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" Foreground="Blue" FontSize="18" VerticalContentAlignment="Center"/>
-
-                    <Label Content="Password" HorizontalAlignment="Left" Margin="60,217,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-                    <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Margin="171,221,0,0" VerticalAlignment="Top" Width="510" FontSize="18" VerticalContentAlignment="Center"/>
+                    <!-- Order Info -->
+                    <StackPanel Grid.Row="0" Margin="0,0,0,10">
+                        <TextBlock Text="User Profile" FontSize="20" FontWeight="Bold" Foreground="DarkBlue" Margin="0,0,0,20"/>
+                        <StackPanel Orientation="Horizontal" Height="36">
+                            <TextBlock Text="ID: " FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="{Binding Customer.CustomerID}" Margin="5,0" FontSize="16"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Height="36">
+                            <TextBlock Text="Name: " FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="{Binding Customer.Name}" Margin="5,0" FontSize="16"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Height="36">
+                            <TextBlock Text="Email: " FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="{Binding Customer.Email}" Margin="5,0" FontSize="16"/>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
             </TabItem>
 
@@ -52,18 +64,21 @@
                            Grid.Row="0"/>
 
 
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10" Grid.ColumnSpan="2">
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,10" Grid.Column="1">
                         <Button x:Name="BtnRead" Content="Read" Width="80" Margin="0,0,10,0" Background="#FFB38B82" Foreground="White" Click="BtnRead_Click" />
                         <ComboBox x:Name="CbCategoryFilter" Width="100" Margin="10,0,0,0" 
-                                    DisplayMemberPath="Name" 
-                                    SelectedValuePath="CategoryID"
-                                    SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"/>
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="CategoryID"
+                      SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"/>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="359,10,0,10" Grid.Column="1">
-                        <TextBox x:Name="txtKeyword" Width="200" Margin="10,0,10,0" TextAlignment="Left" Foreground="Blue"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,10" Grid.Column="2">
+                        <TextBox x:Name="txtKeyword" Width="165" Margin="10,0,10,0" TextAlignment="Left" Foreground="Blue"/>
                         <Button x:Name="BtnSearch" Content="Search" Width="80" Background="#FF6B705C" Foreground="White" Click="BtnSearch_Click"/>
                     </StackPanel>
+
+                    <TextBlock Text="Search by Name or Description"  HorizontalAlignment="Left" Margin="404,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" Grid.Column="1" Grid.RowSpan="2"/>
+                    <TextBlock Text="Filter by Category"  HorizontalAlignment="Left" Margin="102,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" Grid.Column="1" Grid.RowSpan="2"/>
 
 
                     <DataGrid x:Name="ProductList"
@@ -94,7 +109,7 @@
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"
                                                        Visibility="{Binding OrderID, Converter={StaticResource OrderIdToVisibilityConverter}, 
-                                                                                ConverterParameter=Invert}" />  
+                                                                                ConverterParameter=Invert}" />
                                         </Grid>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

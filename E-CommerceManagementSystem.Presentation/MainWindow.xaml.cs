@@ -7,9 +7,20 @@ namespace E_CommerceManagementSystem.Presentation
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private string _currentUserEmail;
+
+        public MainWindow(string userEmail)
         {
             InitializeComponent();
+            _currentUserEmail = userEmail;
         }
+
+        private void CheckUserRole()
+        {            
+            if (_currentUserEmail == "admin@FUMiniTikiSystem.com")
+            {
+                CategoryManagement.Visibility = Visibility.Visible;
+            }
+        }        
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using E_CommerceManagementSystem.Business.Services;
 using E_CommerceManagementSystem.Repository.Entities;
+using Microsoft.IdentityModel.Tokens;
 
 namespace E_CommerceManagementSystem.Presentation
 {
@@ -21,7 +22,7 @@ namespace E_CommerceManagementSystem.Presentation
     /// </summary>
     public partial class ProductDetailWindow : Window
     {
-        public Product Edited {  get; set; }
+        public Product Edited { get; set; }
         private ProductService _service = new();
         private CategoryService _cateService = new();
         public ProductDetailWindow()
@@ -64,60 +65,50 @@ namespace E_CommerceManagementSystem.Presentation
 
             Product p = new();
 
-            // Validate inputs
-            //if (string.IsNullOrWhiteSpace(txtProjectId.Text) ||
-            //    string.IsNullOrWhiteSpace(txtProjectTitle.Text) ||
-            //    string.IsNullOrWhiteSpace(txtResearchField.Text) ||
-            //    string.IsNullOrWhiteSpace(dpStartDate.Text) ||
-            //    string.IsNullOrWhiteSpace(dpEndDate.Text) ||
-            //    string.IsNullOrWhiteSpace(txtBudget.Text) ||
-            //        cbLeadResearcher.SelectedValue == null)
-            //{
-            //    MessageBox.Show("Please fill in all fields.");
-            //    return;
-            //}
+            //Validate inputs
+            if (string.IsNullOrWhiteSpace(txtDescription.Text) ||
+                string.IsNullOrWhiteSpace(txtName.Text) ||
+                string.IsNullOrWhiteSpace(txtPrice.Text) ||
+                    CbCategoryName.SelectedValue == null)
+            {
+                MessageBox.Show("Please fill in all fields.", "Validation", MessageBoxButton.OK , MessageBoxImage.Exclamation);
+                return;
+            }
 
-            //if (dpStartDate.SelectedDate.Value > dpEndDate.SelectedDate.Value)
-            //{
-            //    MessageBox.Show("Start date must be before end date.");
-            //    return;
-            //}
+            if(txtName.Text.Trim().Length < 5 || txtName.Text.Trim().Length > 100)
+            {
+                MessageBox.Show("Product name must be between 5 and 100 characters.", "Validation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
+            if (txtDescription.Text.Trim().Length < 5 || txtDescription.Text.Trim().Length > 100)
+            {
+                MessageBox.Show("Description name must be between 5 and 100 characters.", "Validation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
-            //string title = txtProjectTitle.Text.Trim();
+            if (txtName.Text.Trim().Any(c => "@$#&*".Contains(c)))
+            {
+                MessageBox.Show("Product name cannot contain special characters such as @$#&*", "Validation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
-            //if (title.Length > 100 || title.Length < 5)
-            //{
-            //    MessageBox.Show("Project title must be between 5 and 100 characters.");
-            //    return;
-            //}
+            if (txtDescription.Text.Trim().Any(c => "@$#&*".Contains(c)))
+            {
+                MessageBox.Show("Description cannot contain special characters such as @$#&*", "Validation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
-            //if (title.Any(c => "specialCharHere".Contains(c)))
-            //{
-            //    MessageBox.Show("Project title cannot contain special characters such as ...");
-            //    return;
-            //}
-
-            //string[] words = title.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            //foreach (var word in words)
-            //{
-            //    if (!(char.IsUpper(word[0]) || (char.IsDigit(word[0]) && word[0] != '0')))
-            //    {
-            //        MessageBox.Show("Each word in the project title must start with an uppercase letter or be a digit (0-9).");
-            //        return;
-            //    }
-            //}
-
-            //if (!decimal.TryParse(txtBudget.Text, out decimal budget) || budget < 0)
-            //{
-            //    MessageBox.Show("Budget must be a valid positive number.");
-            //    return;
-            //}
+            if (!decimal.TryParse(txtPrice.Text, out decimal budget) || budget <= 0)
+            {
+                MessageBox.Show("Price must be a valid positive number.", "Validation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
             p.Name = txtName.Text;
             p.Description = txtDescription.Text;
             p.Price = decimal.Parse(txtPrice.Text);
-            if(CbCategoryName.SelectedValue != null)
+            if (CbCategoryName.SelectedValue != null)
                 p.CategoryID = (int)CbCategoryName.SelectedValue;
 
             //ktra cờ
@@ -127,6 +118,18 @@ namespace E_CommerceManagementSystem.Presentation
             {
                 //p.ProductID = int.Parse(txtProductID.Text);
                 p.ProductID = Edited.ProductID;
+
+                if (txtName.Text.Trim() == Edited.Name && txtPrice.Text.Trim() == Edited.Price.ToString() && 
+                    txtDescription.Text.Trim() == Edited.Description.ToString() && int.TryParse(CbCategoryName.SelectedValue?.ToString(), out int CatId) && CatId == Edited.CategoryID)
+                {
+                    Close();
+                    return;
+                }
+
+                MessageBoxResult result = MessageBox.Show("Do you really want to update?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.No)
+                    return;
+
                 _service.Update(p);
             }
 
@@ -149,7 +152,23 @@ namespace E_CommerceManagementSystem.Presentation
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if ((Edited == null && txtName.Text.IsNullOrEmpty() && txtPrice.Text.IsNullOrEmpty() && 
+                txtDescription.Text.IsNullOrEmpty() && CbCategoryName.SelectedValue == null) ||
+                (Edited != null && txtName.Text.Trim() == Edited.Name && 
+                txtPrice.Text.Trim() == Edited.Price.ToString() && txtDescription.Text.Trim() == Edited.Description.ToString() &&
+                int.TryParse(CbCategoryName.SelectedValue?.ToString(), out int CatId) && CatId == Edited.CategoryID))
+            {
+                Close();
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show("Do you really want to cancel?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+                return;
+
+            Close();
         }
+
+
     }
 }
