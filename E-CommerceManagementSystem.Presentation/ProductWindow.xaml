@@ -11,6 +11,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -22,27 +23,33 @@
                HorizontalAlignment="Left"
                Margin="0,0,0,10"
                    Grid.Row="0"/>
+
             <Button x:Name="BtnGenerateTest" Content="Generate Test" Click="BtnGenerateTest_Click" Width="100" Margin="5"/>
-            <!-- Các nút CRUD -->
+          
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,10">
+                <TextBox x:Name="txtKeyword" Width="165" Margin="0,0,10,0" TextAlignment="Left" Foreground="Blue"/>
+                <Button x:Name="BtnSearch" Content="Search" Width="80" Background="#FF6B705C" Foreground="White" Click="BtnSearch_Click" ToolTip="Search by Name or Description"/>
+                <ComboBox Text="Filter" x:Name="CbCategoryFilter" Width="100" Margin="10,0,0,0" 
+      DisplayMemberPath="Name" 
+      SelectedValuePath="CategoryID"
+      SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"
+                        ToolTip="Filter by Category"/>
+            </StackPanel>
+          
+          
+            <!-- Các nút CRUD -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
                 <Button x:Name="BtnRead" Content="Read" Width="80" Margin="0,0,10,0" Background="#FFB38B82" Foreground="White" Click="BtnRead_Click"/>
                 <Button x:Name="BtnCreate" Content="Create" Width="80" Margin="0,0,10,0" Background="#FFB38B82" Foreground="White" Click="BtnCreate_Click"/>
                 <Button x:Name="BtnUpdate" Content="Update" Width="80" Margin="0,0,10,0" Background="#FFB38B82" Foreground="White" Click="BtnUpdate_Click"/>
                 <Button x:Name="BtnDelete" Content="Delete" Width="80" Background="#FFB38B82" Foreground="White" Click="BtnDelete_Click"/>
-                <TextBox x:Name="txtKeyword" Width="150" Margin="10,0,10,0" TextAlignment="Left" Foreground="Blue"/>
-                <Button x:Name="BtnSearch" Content="Search" Width="80" Background="#FF6B705C" Foreground="White" Click="BtnSearch_Click"/>
-                <ComboBox x:Name="CbCategoryFilter" Width="100" Margin="10,0,0,0" 
-                  DisplayMemberPath="Name" 
-                  SelectedValuePath="CategoryID"
-                  SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"/>
-                
             </StackPanel>
 
 
 
             <!-- Danh sách dự án -->
             <DataGrid x:Name="ProductList"
-                  Grid.Row="2"
+                  Grid.Row="3"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   Margin="0,10,0,10">
@@ -54,6 +61,8 @@
                     <DataGridTextColumn Header="CategoryName"  Binding="{Binding Category.Name}" Width="150"/>
                 </DataGrid.Columns>
             </DataGrid>
+            <TextBlock Text="Search by Name or Description"  HorizontalAlignment="Left" Margin="198,24,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="166"/>
+            <TextBlock Text="Filter by Category"  HorizontalAlignment="Left" Margin="464,23,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="98"/>
 
         </Grid>
 
