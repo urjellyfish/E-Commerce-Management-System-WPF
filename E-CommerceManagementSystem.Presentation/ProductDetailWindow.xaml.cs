@@ -65,55 +65,45 @@ namespace E_CommerceManagementSystem.Presentation
 
             Product p = new();
 
-            // Validate inputs
-            //if (string.IsNullOrWhiteSpace(txtProjectId.Text) ||
-            //    string.IsNullOrWhiteSpace(txtProjectTitle.Text) ||
-            //    string.IsNullOrWhiteSpace(txtResearchField.Text) ||
-            //    string.IsNullOrWhiteSpace(dpStartDate.Text) ||
-            //    string.IsNullOrWhiteSpace(dpEndDate.Text) ||
-            //    string.IsNullOrWhiteSpace(txtBudget.Text) ||
-            //        cbLeadResearcher.SelectedValue == null)
-            //{
-            //    MessageBox.Show("Please fill in all fields.");
-            //    return;
-            //}
+            //Validate inputs
+            if (string.IsNullOrWhiteSpace(txtDescription.Text) ||
+                string.IsNullOrWhiteSpace(txtName.Text) ||
+                string.IsNullOrWhiteSpace(txtPrice.Text) ||
+                    CbCategoryName.SelectedValue == null)
+            {
+                MessageBox.Show("Please fill in all fields.", "Validation", MessageBoxButton.OK , MessageBoxImage.Exclamation);
+                return;
+            }
 
-            //if (dpStartDate.SelectedDate.Value > dpEndDate.SelectedDate.Value)
-            //{
-            //    MessageBox.Show("Start date must be before end date.");
-            //    return;
-            //}
+            if(txtName.Text.Trim().Length < 5 || txtName.Text.Trim().Length > 100)
+            {
+                MessageBox.Show("Product name must be between 5 and 100 characters.", "Validation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
+            if (txtDescription.Text.Trim().Length < 5 || txtDescription.Text.Trim().Length > 100)
+            {
+                MessageBox.Show("Description name must be between 5 and 100 characters.", "Validation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
-            //string title = txtProjectTitle.Text.Trim();
+            if (txtName.Text.Trim().Any(c => "@$#&*".Contains(c)))
+            {
+                MessageBox.Show("Product name cannot contain special characters such as @$#&*", "Validation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
-            //if (title.Length > 100 || title.Length < 5)
-            //{
-            //    MessageBox.Show("Project title must be between 5 and 100 characters.");
-            //    return;
-            //}
+            if (txtDescription.Text.Trim().Any(c => "@$#&*".Contains(c)))
+            {
+                MessageBox.Show("Description cannot contain special characters such as @$#&*", "Validation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
-            //if (title.Any(c => "specialCharHere".Contains(c)))
-            //{
-            //    MessageBox.Show("Project title cannot contain special characters such as ...");
-            //    return;
-            //}
-
-            //string[] words = title.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            //foreach (var word in words)
-            //{
-            //    if (!(char.IsUpper(word[0]) || (char.IsDigit(word[0]) && word[0] != '0')))
-            //    {
-            //        MessageBox.Show("Each word in the project title must start with an uppercase letter or be a digit (0-9).");
-            //        return;
-            //    }
-            //}
-
-            //if (!decimal.TryParse(txtBudget.Text, out decimal budget) || budget < 0)
-            //{
-            //    MessageBox.Show("Budget must be a valid positive number.");
-            //    return;
-            //}
+            if (!decimal.TryParse(txtPrice.Text, out decimal budget) || budget <= 0)
+            {
+                MessageBox.Show("Price must be a valid positive number.", "Validation", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
             p.Name = txtName.Text;
             p.Description = txtDescription.Text;
@@ -178,5 +168,7 @@ namespace E_CommerceManagementSystem.Presentation
 
             Close();
         }
+
+
     }
 }

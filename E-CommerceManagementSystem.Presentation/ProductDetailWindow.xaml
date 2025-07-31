@@ -36,7 +36,7 @@
                 <TextBox x:Name="txtProductID" Grid.Row="0" Grid.Column="1" Margin="0,4"/>-->
 
                 <TextBlock Text="Name:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtName" Grid.Row="1" Grid.Column="1" Margin="0,4"/>
+                <TextBox x:Name="txtName" Grid.Row="1" Grid.Column="1" Margin="0,4" />
 
                 <TextBlock Text="Price:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
                 <TextBox x:Name="txtPrice" Grid.Row="2" Grid.Column="1" Margin="0,4"/>
