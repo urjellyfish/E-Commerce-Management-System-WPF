@@ -1,5 +1,6 @@
 ﻿using E_CommerceManagementSystem.Business.Services;
 using E_CommerceManagementSystem.Repository.Entities;
+using E_CommerceManagementSystem.Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,13 +27,15 @@ namespace E_CommerceManagementSystem.Presentation
         private OrderService orderService = new();
         public Customer Customer { get; set; }
 
-        private ProductService _service = new();
+        private ProductService _productService = new();
         private CategoryService _categoryService = new();
-
+        public Order? SelectedOrder { get; set; }
+        public List<Product> OrderProducts { get; set; }
         public UserWindow()
         {
             InitializeComponent();
             CartList.ItemsSource = cartItems;
+            
         }
 
 
@@ -40,12 +43,13 @@ namespace E_CommerceManagementSystem.Presentation
         {
             LoadData();
             FillCustomerInfor();
+            LoadOrderDetail();
         }
 
         private void LoadData()
         {
             ProductList.ItemsSource = null;
-            ProductList.ItemsSource = _service.GetAll();
+            ProductList.ItemsSource = _productService.GetAll();
             
             CbCategoryFilter.ItemsSource = null;
             CbCategoryFilter.ItemsSource = _categoryService.GetAll();
@@ -59,7 +63,7 @@ namespace E_CommerceManagementSystem.Presentation
                 LoadData();
             }
 
-            var result = _service.Search(txtKeyword.Text.Trim());
+            var result = _productService.Search(txtKeyword.Text.Trim());
             ProductList.ItemsSource = null;
 
             if (result.Count > 0)
@@ -116,11 +120,21 @@ namespace E_CommerceManagementSystem.Presentation
                     OrderDate = DateTime.Now,
                     Status = "Pending",
                     CustomerID = Customer.CustomerID,
-                    Customer = Customer,
-                    Products = new List<Product>(cartItems)
                 };
-
+                
                 orderService.Create(order);
+
+                foreach (var item in cartItems)
+                {
+                    var product = _productService.GetProductById(item.ProductID);
+                    if (product != null)
+                    {
+                        product.OrderID = order.OrderID;
+                        _productService.Update(product);
+                    }
+                }
+
+               
                 MessageBox.Show("Order successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 cartItems.Clear();
             }
@@ -132,14 +146,31 @@ namespace E_CommerceManagementSystem.Presentation
             if (CbCategoryFilter.SelectedValue != null)
             {
                 int selectedCategory = (int)CbCategoryFilter.SelectedValue;
-                ProductList.ItemsSource = _service.FilterByCate(selectedCategory);
+                ProductList.ItemsSource = _productService.FilterByCate(selectedCategory);
             }
             else
             {
                 // Nếu không chọn gì, hiển thị tất cả sản phẩm
-                ProductList.ItemsSource = _service.GetAll();
+                ProductList.ItemsSource = _productService.GetAll();
             }
         }
+
+        private void LoadOrderDetail()
+        {
+
+            // Giả sử lấy đơn hàng gần nhất của user
+            SelectedOrder = orderService.GetOrdersByCustomerId(Customer.CustomerID)
+                                     .OrderByDescending(o => o.OrderDate)
+                                     .FirstOrDefault();
+
+            if (SelectedOrder != null)
+            {
+                OrderProducts = _productService.GetAllProductByOrderId(SelectedOrder.OrderID);   
+
+                DataContext = this; // cập nhật binding
+            }
+        }
+
 
         private void BtnRead_Click(object sender, RoutedEventArgs e)
         {
@@ -158,6 +189,7 @@ namespace E_CommerceManagementSystem.Presentation
 
             PasswordBox.Password = Customer.Password.ToString();
             PasswordBox.IsEnabled = false;
+
         }
     }
 }

@@ -20,11 +20,22 @@ namespace E_CommerceManagementSystem.Repository.Repositories
             return context.Orders.Include(o => o.Products).Include(o => o.Customer).ToList();
         }
 
-        public void Create(Order order)
+        public List<Order> GetOrdersByCustomerId(int customerId)
+        {
+            context = new();
+            return context.Orders
+                .Include(o => o.Products)
+                .Include(o => o.Customer)
+                .Where(o => o.Customer.CustomerID == customerId)
+                .ToList();
+        }
+
+        public Order? Create(Order order)
         {
             context = new();
             context.Orders.Add(order);
             context.SaveChanges();
+            return order;
         }
 
         public void Update(Order order)

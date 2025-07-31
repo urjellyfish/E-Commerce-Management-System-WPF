@@ -18,9 +18,14 @@ namespace E_CommerceManagementSystem.Business.Services
             return orderRepository.GetAll();
         }
 
-        public void Create(Order project)
+        public List<Order> GetOrdersByCustomerId(int customerId)
         {
-            orderRepository.Create(project);
+            return orderRepository.GetOrdersByCustomerId(customerId);
+        }
+
+        public Order? Create(Order project)
+        {
+            return orderRepository.Create(project);
         }
 
         public void Update(Order project)
