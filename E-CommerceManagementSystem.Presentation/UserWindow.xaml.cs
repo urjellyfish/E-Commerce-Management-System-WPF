@@ -42,8 +42,9 @@ namespace E_CommerceManagementSystem.Presentation
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadData();
-            FillCustomerInfor();
             LoadOrderDetail();
+
+            DataContext = this;
         }
 
         private void LoadData()
@@ -176,21 +177,5 @@ namespace E_CommerceManagementSystem.Presentation
         {
             LoadData();
         }
-        private void FillCustomerInfor()
-        {
-            CustomerIdTextBox.Text = Customer.CustomerID.ToString();
-            CustomerIdTextBox.IsEnabled = false;
-
-            NameTextBox.Text = Customer.Name.ToString();
-            NameTextBox.IsEnabled = false;
-
-            EmailTextBox.Text = Customer.Email.ToString();
-            EmailTextBox.IsEnabled = false;
-
-            PasswordBox.Password = Customer.Password.ToString();
-            PasswordBox.IsEnabled = false;
-
-        }
     }
 }
-
