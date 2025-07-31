@@ -31,9 +31,8 @@
                 <Button x:Name="BtnSearch" Content="Search" Width="80" Background="#FF6B705C" Foreground="White" Click="BtnSearch_Click" ToolTip="Search by Name or Description"/>
                 <ComboBox Text="Filter" x:Name="CbCategoryFilter" Width="100" Margin="10,0,0,0" 
       DisplayMemberPath="Name" 
-      SelectedValuePath="CategoryID"
-      SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"
-                        ToolTip="Filter by Category"/>
+      SelectedValuePath="CategoryId"
+      SelectedIndex="0" SelectionChanged="CbCategoryFilter_SelectionChanged"/>
             </StackPanel>
           
           

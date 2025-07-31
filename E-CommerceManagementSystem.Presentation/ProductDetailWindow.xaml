@@ -46,7 +46,7 @@
 
                 <TextBlock Text="CategoryName:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
                 <ComboBox x:Name="CbCategoryName" Grid.Row="4" Grid.Column="1" Margin="0,4"
-          DisplayMemberPath="Name" SelectedValuePath="CategoryID"/>
+          DisplayMemberPath="Name" SelectedValuePath="CategoryId"/>
 
 
                 <Button x:Name="btnSave" Content="Save" Grid.Row="5" Grid.Column="0"
