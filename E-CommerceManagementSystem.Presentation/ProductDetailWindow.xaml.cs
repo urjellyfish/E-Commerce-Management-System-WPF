@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using E_CommerceManagementSystem.Business.Services;
 using E_CommerceManagementSystem.Repository.Entities;
+using Microsoft.IdentityModel.Tokens;
 
 namespace E_CommerceManagementSystem.Presentation
 {
@@ -21,7 +22,7 @@ namespace E_CommerceManagementSystem.Presentation
     /// </summary>
     public partial class ProductDetailWindow : Window
     {
-        public Product Edited {  get; set; }
+        public Product Edited { get; set; }
         private ProductService _service = new();
         private CategoryService _cateService = new();
         public ProductDetailWindow()
@@ -117,7 +118,7 @@ namespace E_CommerceManagementSystem.Presentation
             p.Name = txtName.Text;
             p.Description = txtDescription.Text;
             p.Price = decimal.Parse(txtPrice.Text);
-            if(CbCategoryName.SelectedValue != null)
+            if (CbCategoryName.SelectedValue != null)
                 p.CategoryID = (int)CbCategoryName.SelectedValue;
 
             //ktra cờ
@@ -127,6 +128,18 @@ namespace E_CommerceManagementSystem.Presentation
             {
                 //p.ProductID = int.Parse(txtProductID.Text);
                 p.ProductID = Edited.ProductID;
+
+                if (txtName.Text.Trim() == Edited.Name && txtPrice.Text.Trim() == Edited.Price.ToString() && 
+                    txtDescription.Text.Trim() == Edited.Description.ToString() && int.TryParse(CbCategoryName.SelectedValue?.ToString(), out int CatId) && CatId == Edited.CategoryID)
+                {
+                    Close();
+                    return;
+                }
+
+                MessageBoxResult result = MessageBox.Show("Do you really want to update?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.No)
+                    return;
+
                 _service.Update(p);
             }
 
@@ -149,7 +162,21 @@ namespace E_CommerceManagementSystem.Presentation
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if ((Edited == null && txtName.Text.IsNullOrEmpty() && txtPrice.Text.IsNullOrEmpty() && 
+                txtDescription.Text.IsNullOrEmpty() && CbCategoryName.SelectedValue == null) ||
+                (Edited != null && txtName.Text.Trim() == Edited.Name && 
+                txtPrice.Text.Trim() == Edited.Price.ToString() && txtDescription.Text.Trim() == Edited.Description.ToString() &&
+                int.TryParse(CbCategoryName.SelectedValue?.ToString(), out int CatId) && CatId == Edited.CategoryID))
+            {
+                Close();
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show("Do you really want to cancel?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+                return;
+
+            Close();
         }
     }
 }

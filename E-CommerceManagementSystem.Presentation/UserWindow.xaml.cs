@@ -43,6 +43,8 @@ namespace E_CommerceManagementSystem.Presentation
         {
             LoadData();
             LoadOrderDetail();
+
+            DataContext = this;
         }
 
         private void LoadData()
@@ -177,4 +179,3 @@ namespace E_CommerceManagementSystem.Presentation
         }
     }
 }
-
