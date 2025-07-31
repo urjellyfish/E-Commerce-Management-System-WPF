@@ -68,7 +68,7 @@ namespace E_CommerceManagementSystem.Presentation
             }
             else
             {
-                MainWindow main = new MainWindow();
+                MainWindow main = new MainWindow(EmailTextBox.Text.Trim());
                 main.Show();
             }
 
