@@ -18,10 +18,10 @@
             </TabItem>
 
             <TabItem Header="Orders" Width="100">
-                <local:OrderWindow />
+                <local:OrderWindow/>
             </TabItem>
 
-            <TabItem x:Name="CategoryManagement" Header="Categories" Width="100" Visibility="Collapsed">
+            <TabItem x:Name="CategoryManagement" Header="Categories" Width="100">
                 <local:CategoryManagementWindow/>
             </TabItem>
 
