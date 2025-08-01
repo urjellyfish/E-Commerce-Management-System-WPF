@@ -9,7 +9,7 @@ namespace E_CommerceManagementSystem.Repository.Repositories
 {
     public class CategoryRepository
     {
-        private readonly AppDbContext _context;
+        private AppDbContext _context;
 
         public CategoryRepository()
         {
@@ -18,28 +18,33 @@ namespace E_CommerceManagementSystem.Repository.Repositories
 
         public List<Category> GetAll()
         {
+            _context = new();
             return _context.Categories.ToList();
         }
 
         public Category? GetById(int categoryId)
         {
+            _context = new();
             return _context.Categories.Find(categoryId);
         }
 
         public void Add(Category category)
         {
+            _context = new();
             _context.Categories.Add(category);
             _context.SaveChanges();
         }
 
         public void Update(Category category)
         {
+            _context = new();
             _context.Categories.Update(category);
             _context.SaveChanges();
         }
 
         public void Delete(int categoryId)
         {
+            _context = new();
             var category = _context.Categories.Find(categoryId);
             if(category != null)
             {

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using E_CommerceManagementSystem.Business.DTO;
 using E_CommerceManagementSystem.Business.Services;
+using Microsoft.IdentityModel.Tokens;
 
 namespace E_CommerceManagementSystem.Presentation
 {
@@ -46,17 +47,33 @@ namespace E_CommerceManagementSystem.Presentation
             {
                 CategoryIdTextBox.Text = selectedCategory.CategoryId.ToString();
                 NameTextBox.Text = selectedCategory.Name;
-                PictureTextBox.Text = selectedCategory.Picture;
                 DescriptionTextBox.Text = selectedCategory.Description;
             }
         }
 
+        private bool Validate()
+        {
+            if (NameTextBox.Text.IsNullOrEmpty() || DescriptionTextBox.Text.IsNullOrEmpty())
+                return false;
+
+            //foreach (var cat in _categoryService.GetAll())
+            //    if ()
+
+            return true;
+        }
+
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!Validate())
+            {
+                MessageBox.Show("Please fill required field!", "Validate", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            } 
+
             var newCategory = new CategoryDTO
             {
                 Name = NameTextBox.Text,
-                Picture = PictureTextBox.Text,
+                Picture = "",
                 Description = DescriptionTextBox.Text
             };
 
@@ -67,6 +84,12 @@ namespace E_CommerceManagementSystem.Presentation
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!Validate())
+            {
+                MessageBox.Show("Please fill required field!", "Validate", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (CategoryDataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Please select a category to update.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -77,7 +100,7 @@ namespace E_CommerceManagementSystem.Presentation
             {
                 CategoryId = int.Parse(CategoryIdTextBox.Text),
                 Name = NameTextBox.Text,
-                Picture = PictureTextBox.Text,
+                Picture = "",
                 Description = DescriptionTextBox.Text
             };
 
